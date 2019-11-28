@@ -7,6 +7,15 @@ import 'screens/history.dart';
 
 
 ///FILE EDITOR///
+
+void deleteHistory(){
+  Directory dir;
+  getApplicationDocumentsDirectory().then((d){
+    dir = d;
+  dir.deleteSync(recursive: true);
+  });
+}
+
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
   return directory.path;

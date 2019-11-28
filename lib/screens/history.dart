@@ -86,6 +86,7 @@ class History extends StatefulWidget{
 
 class _History extends State<History>{
 
+  bool checkHistory;
 
   Widget build (BuildContext context){
     return Scaffold(
@@ -98,13 +99,7 @@ class _History extends State<History>{
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.delete_forever),
-            onPressed: ()=>setState((){
-              Directory dir;
-              getApplicationDocumentsDirectory().then((d){
-                dir = d;
-                dir.deleteSync(recursive: true);
-              });
-            })
+            onPressed: ()=>showAlertDelete()     
           )
         ],
       ),
@@ -118,6 +113,7 @@ class _History extends State<History>{
           }
           else if (snapshot.connectionState == ConnectionState.done){
             if(snapshot.data.isNotEmpty){
+              checkHistory = true;
               return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, i){
@@ -131,15 +127,44 @@ class _History extends State<History>{
               );
               
             }
-            else return Center(
+            else{
+              checkHistory = false;
+              return Center(
               child:Text(
                 "Non vi è alcuna cronologia",
                 ));
+            } 
           }
           else return SizedBox();
         },
       )     
     );
   }
+
+  void showAlertDelete(){
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context){
+      return AlertDialog(
+        title: Text("Conferma Eliminazione"),
+        content: Text("Sicuro di voler eliminare tutte le voci?"),
+        actions: <Widget>[
+          FlatButton(
+            child: Text("Si"),
+            onPressed:(){
+              deleteHistory();
+              Navigator.pop(context);
+            }
+          ),
+          FlatButton(
+            child: Text("No"),
+            onPressed: ()=>Navigator.pop(context),
+          )
+        ],
+      );
+    } ,
+  );
+}
 }
 
