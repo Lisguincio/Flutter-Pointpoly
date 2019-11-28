@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pointpoly/definitions.dart';
 import 'package:pointpoly/widget/button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Preparazione1 extends StatefulWidget{
   Preparazione1();
@@ -15,7 +16,11 @@ class MyPreparazione1 extends State<Preparazione1>{
 
   void initState(){
     super.initState();
-    soldi.text = rules_cash.toString();
+    //CARICAMENTO DELLE PREFERENZE
+    SharedPreferences.getInstance().then((i){
+      soldi.text = i.getInt("startpoints").toString();
+      });
+    ////
   }
 
   Widget build (BuildContext context){
@@ -98,6 +103,11 @@ class MyPreparazione1 extends State<Preparazione1>{
           "AVANTI",
           (){
             startpoints = int.parse(soldi.text);
+            //SALVATAGGIO DELLE PREFERENZE
+            SharedPreferences.getInstance().then((i){
+              i.setInt('startpoints', startpoints).then((a)=>print("STARTPOINTS salvato nelle preferenze"));
+            });
+            ////
             Navigator.pushNamed(context, "/Preparazione2");
           },
           tooltip:"Tap per avanzare nella preparazione"),    
