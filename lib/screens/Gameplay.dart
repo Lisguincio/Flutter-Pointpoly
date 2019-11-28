@@ -2,9 +2,9 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pointpoly/definitions.dart';
-import 'package:pointpoly/stats.dart';
-import 'package:pointpoly/widget/button.dart';
+import 'package:Pointpoly/definitions.dart';
+import 'package:Pointpoly/stats.dart';
+import 'package:Pointpoly/widget/button.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 
 import 'history.dart';

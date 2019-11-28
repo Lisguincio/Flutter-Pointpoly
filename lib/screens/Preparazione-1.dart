@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pointpoly/definitions.dart';
-import 'package:pointpoly/widget/button.dart';
+import 'package:Pointpoly/definitions.dart';
+import 'package:Pointpoly/widget/button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preparazione1 extends StatefulWidget{

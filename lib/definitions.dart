@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:pointpoly/stats.dart';
+import 'package:Pointpoly/stats.dart';
 import 'screens/history.dart';
 
 //COSTANTI DELLE REGOLE//
