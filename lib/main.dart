@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:pointpoly/widget/button.dart';
+import 'package:Pointpoly/widget/button.dart';
 
-import 'package:pointpoly/screens/Preparazione-1.dart';
-import 'package:pointpoly/screens/Gameplay.dart';
-import 'package:pointpoly/screens/history.dart';
-import 'package:pointpoly/screens/Preparazione-2.dart';
-import 'package:pointpoly/screens/FinePartita.dart';
+import 'package:Pointpoly/screens/Preparazione-1.dart';
+import 'package:Pointpoly/screens/Gameplay.dart';
+import 'package:Pointpoly/screens/history.dart';
+import 'package:Pointpoly/screens/Preparazione-2.dart';
+import 'package:Pointpoly/screens/FinePartita.dart';
 
 
 void main(){
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => MyHomePage(title: "PointPoly"),
+        '/': (context) => MyHomePage(title: "Pointpoly"),
         '/Preparazione1': (context) => Preparazione1(),
         '/Preparazione2': (context) => Preparazione2(),
         '/Game': (context) => Gameplay(),
@@ -92,10 +92,10 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  "assets/whitetheme/PointPoly-LOGO4x.png",
+                  "assets/whitetheme/Pointpoly-LOGO4x.png",
                 ),
                 Text(
-                  "POINTPOLY",
+                  "Pointpoly",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 40,

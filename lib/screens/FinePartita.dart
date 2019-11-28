@@ -1,10 +1,10 @@
 import 'dart:core';
 
 
-import 'package:pointpoly/definitions.dart';
-import 'package:pointpoly/file.dart';
-import 'package:pointpoly/stats.dart';
-import 'package:pointpoly/widget/button.dart';
+import 'package:Pointpoly/definitions.dart';
+import 'package:Pointpoly/file.dart';
+import 'package:Pointpoly/stats.dart';
+import 'package:Pointpoly/widget/button.dart';
 import 'package:flutter/material.dart';
 import '../definitions.dart';
 
