@@ -34,6 +34,14 @@ class Player {
     }){
       this.color = Color.fromRGBO(25*random.nextInt(11), 25*random.nextInt(11), 25*random.nextInt(11), 1);
     }
+  
+  Player.fromPlayer(Player p){
+    this.id = p.id;
+    this.name = p.name;
+    this.color = p.color;
+    this.points = p.points;
+    this.position = p.position;
+  }
 
     static List<Player> parse(String x){
       List<Player> p = new List();
@@ -46,24 +54,29 @@ class Player {
     }
 
     void addpoints(int x){
-      this.points += x;
+      if(this.name != "BANCA")
+        this.points += x;
     }
     void leavepoints(int x){
-      this.points -= x;
+      if(this.name != "BANCA")
+        this.points -= x;
     }
 
   static void pointsexchange(Player x, Player y, int sum){
-    if(x.points <= sum){
-      y.addpoints(x.points);
-      players.remove(x);
-      startplayers.firstWhere((a){return a.name == x.name;}).position = Match.position--;
-      print(x.name + " ELIMINATO - NumGiocatoriinGioco = " + players.length.toString() + "con posizione " + (Match.position+1).toString());
+    print(x.name +" >>> "+ y.name +" = "+ sum.toString());
+    
+    if(x.points <= sum){ //SE il giocatore debitore ha un patrimonio inferiore alla somma dovuta
+      y.addpoints(x.points); //Passa al ricevente l'intero patrimonio
+      startplayers.firstWhere((a)=>a.id == x.id).position = Match.position--; //Posizione del debitore
+      print(x.name + " ELIMINATO - NumGiocatoriinGioco = " + players.length.toString() + " con posizione " + (Match.position+1).toString());
+      players.remove(x); //Elimina il debitore
       statscash += sum; //STATS
       return ;//FINISCE IL GIOCO PER X
     }
-    print(x.name +" >>> "+ y.name +" = "+ sum.toString());
+
     y.addpoints(sum);
-    if(y.points >= statmaxcash){
+
+    if(y.points >= statmaxcash && y.name != "BANCA"){
       statmaxcash = y.points;
       statmaxcashowner = y.name;
     }

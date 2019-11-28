@@ -93,7 +93,7 @@ class FinePartita extends StatelessWidget{
           Colors.redAccent.shade700,
           "ESCI",
           (){
-            
+
             startplayers.sort(
               (Player a, Player b){
 

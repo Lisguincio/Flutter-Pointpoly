@@ -7,6 +7,8 @@ import 'package:pointpoly/stats.dart';
 import 'package:pointpoly/widget/button.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 
+import 'history.dart';
+
 
 int s, r;
 
@@ -24,13 +26,13 @@ class MyGameplay extends State<Gameplay>{
   List<GestureDetector> tiles = new List();
 
   void initState(){
+    
     statscash = 0;
     statmaxcash = 0;
     statmaxcashowner = " ";
     start = clock.now();
     BackButtonInterceptor.add(myInterceptor);
     super.initState();
-    
   }
 
   void dispose(){
@@ -82,7 +84,7 @@ class MyGameplay extends State<Gameplay>{
                       width: 318,
                       height: 65,
                       decoration: BoxDecoration(
-                        color: players[i].id != 0 ? Colors.grey.shade600: Colors.yellow.shade800,
+                        color: players[i].name != "BANCA" ? Colors.grey.shade600: Colors.yellow.shade800,
                         borderRadius: BorderRadiusDirectional.all(Radius.circular(5))
                       ),
                       child: Row(
@@ -104,7 +106,7 @@ class MyGameplay extends State<Gameplay>{
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              if(players[i].id != 0)Text(players[i].points.toString())
+                              if(players[i].name != "BANCA")Text(players[i].points.toString())
                             ],
                           ),
                           isSenderMoment ? Icon(
@@ -206,7 +208,8 @@ class MyGameplay extends State<Gameplay>{
 
                     if(players.length == 2){
                       winner = players.last;
-                      players.last.position = 1;
+                      startplayers.firstWhere((a){return a.id == winner.id;}).position = Match.position--; //Posizione del debitore
+
                       dispose();
                       stop = clock.now();
                       Navigator.pushNamed(context, "/FinePartita");

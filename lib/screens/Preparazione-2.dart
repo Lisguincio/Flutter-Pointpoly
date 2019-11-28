@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:pointpoly/definitions.dart';
 import 'package:pointpoly/widget/button.dart';
 
+import 'history.dart';
 
 
 class PlayerTile extends StatelessWidget{
@@ -40,7 +41,6 @@ class PlayerTile extends StatelessWidget{
   }
 }
 
-
 class Preparazione2 extends StatefulWidget{
   Preparazione2();
   MyPreparazione2 createState() => MyPreparazione2();
@@ -55,20 +55,17 @@ class MyPreparazione2 extends State<Preparazione2>{
     players.clear();
     startplayers.clear();
     controllers.clear();
-    //players.add(new Player(id: 0, name: "BANCA", points: rules_bankcash));// BANCA
     for(int i=0;i<2;i++){
-      players.add(Player());
+      startplayers.add(Player(id: startplayers.length));
       controllers.add(TextEditingController());
     }
-
-    
-    //TODO: Match.position = nplayers;
-  }
+  } //initState
 
   void dispose(){
     super.dispose();
-    players.insert(0, Player(id: 0, name: "BANCA", points: rules_bankcash));
+    controllers.clear();
   }
+
   Widget build(BuildContext context){
 
     return Scaffold(
@@ -78,8 +75,8 @@ class MyPreparazione2 extends State<Preparazione2>{
           IconButton(
             icon: Icon(Icons.add_circle_outline),
             onPressed: ()=>setState((){
-              if(players.length < 9){
-                players.add(new Player());
+              if(startplayers.length < 9){
+                startplayers.add(Player(id: startplayers.length));
                 controllers.add(TextEditingController());
               } 
               
@@ -88,8 +85,8 @@ class MyPreparazione2 extends State<Preparazione2>{
           IconButton(
             icon: Icon(Icons.remove_circle_outline),
             onPressed: ()=>setState(() {
-              if(players.length > 2){
-                players.removeLast();
+              if(startplayers.length > 2){
+                startplayers.removeLast();
                 controllers.removeLast(); 
               }
             }),
@@ -98,8 +95,8 @@ class MyPreparazione2 extends State<Preparazione2>{
       ),
 
       body: ListView.builder(
-        itemCount: players.length,
-        itemBuilder: (context, i) => PlayerTile(players[i], controllers[i])
+        itemCount: controllers.length,
+        itemBuilder: (context, i) =>PlayerTile(startplayers[i], controllers[i])
       ),
 
       bottomNavigationBar: Padding(
@@ -110,17 +107,19 @@ class MyPreparazione2 extends State<Preparazione2>{
           Colors.greenAccent.shade700, 
           "AVANTI", 
           (){
-            for(int i=1;i<nplayers+1;i++){
-              players[i].name = controllers[i-1].text;
-              players[i].points = startpoints;
-              startplayers.add(players[i]);
+            players.add(new Player(id: 0, name: "BANCA", points: rules_bankcash));// BANCA
+            for(int i=0;i<startplayers.length;i++){
+              startplayers[i].name = controllers[i].text;
+              startplayers[i].points = startpoints;
+              players.add(Player.fromPlayer(startplayers[i]));
             }
-            
+            Match.position = startplayers.length;
             Navigator.pushNamed(context, "/Game");
+            dispose();
           }, 
           tooltip: "Click per avanti avanti nel settaggio",
         )
       ),
     );
-  }
-}
+  } //Build
+} //_MyPreparazione-2
