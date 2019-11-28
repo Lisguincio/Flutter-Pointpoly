@@ -216,7 +216,7 @@ class MyGameplay extends State<Gameplay>{
                     }
                     else {
                       Navigator.pop(context);
-                      inSnackBar(players[s].name, players[r].name, controllino.text);
+                      inSnackBar(players[s], players[r], controllino.text);
                     }
                   });
                 },
@@ -228,17 +228,23 @@ class MyGameplay extends State<Gameplay>{
     }
   }
 
-  void inSnackBar(String sender, String receiver, String sum){
+  void inSnackBar(Player sender, Player receiver, String sum){
   _scaffoldKey.currentState.showSnackBar(SnackBar(
     behavior: SnackBarBehavior.floating,
     content: Text(
-      "$sender >>> $receiver = $sum",
+      sender.name + " > " + sum + " > " + receiver.name,
       style: TextStyle( 
         fontWeight: FontWeight.bold,
         fontSize: 16
       ),
       textAlign: TextAlign.center, 
-    )
+    ),
+    action: SnackBarAction(
+      label: "ANNULLA",
+      onPressed: ()=>setState((){
+        Player.pointsexchange(receiver, sender, int.parse(sum));
+      }),
+    ),
   ));
 }
 }
