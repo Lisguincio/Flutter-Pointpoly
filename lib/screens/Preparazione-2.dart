@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pointpoly/definitions.dart';
 import 'package:pointpoly/widget/button.dart';
-import 'history.dart';
 
 
 
@@ -34,7 +33,6 @@ class PlayerTile extends StatelessWidget{
             icon: Icon(Icons.account_circle, size: 60, color: this.player.color,),
             hintText: "Inserisci Nome",
           ),
-          on
 
         )
       )
@@ -58,7 +56,6 @@ class MyPreparazione2 extends State<Preparazione2>{
     startplayers.clear();
     controllers.clear();
     //players.add(new Player(id: 0, name: "BANCA", points: rules_bankcash));// BANCA
-
     for(int i=0;i<2;i++){
       players.add(Player());
       controllers.add(TextEditingController());
@@ -68,6 +65,10 @@ class MyPreparazione2 extends State<Preparazione2>{
     //TODO: Match.position = nplayers;
   }
 
+  void dispose(){
+    super.dispose();
+    players.insert(0, Player(id: 0, name: "BANCA", points: rules_bankcash));
+  }
   Widget build(BuildContext context){
 
     return Scaffold(
