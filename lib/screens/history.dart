@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:Pointpoly/definitions.dart';
 import 'package:Pointpoly/file.dart';
 
