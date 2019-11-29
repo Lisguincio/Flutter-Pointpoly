@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:Pointpoly/widget/GameplayTile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Pointpoly/definitions.dart';
@@ -8,11 +9,13 @@ import 'package:Pointpoly/widget/button.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 
 import 'history.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 
 int s, r;
 
 bool isSenderMoment = true;
+
 
 class Gameplay extends StatefulWidget{
   Gameplay();
@@ -26,20 +29,23 @@ class MyGameplay extends State<Gameplay>{
   List<GestureDetector> tiles = new List();
 
   void initState(){
-    
+    //RESET STATS
     statscash = 0;
     statmaxcash = 0;
     statmaxcashowner = " ";
     start = clock.now();
-    BackButtonInterceptor.add(myInterceptor);
+    isSenderMoment = true;
+    //
+    BackButtonInterceptor.add(myInterceptor); //BLOCK BACK BUTTON
     super.initState();
   }
 
   void dispose(){
-    BackButtonInterceptor.remove(myInterceptor);
+    BackButtonInterceptor.remove(myInterceptor); //UNLOCK BACK BUTTON
     super.dispose();
   }
 
+  //BACK BUTTON
   bool myInterceptor(bool stopDefaultButtonEvent) { 
    print("BACK BUTTON!");
    exitDialog();
@@ -51,7 +57,7 @@ class MyGameplay extends State<Gameplay>{
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        leading: new IconButton(
+        leading: IconButton(
           icon: Icon(Icons.close),
           onPressed: (){exitDialog();},
           color: Colors.white,
@@ -60,71 +66,7 @@ class MyGameplay extends State<Gameplay>{
       ),
 
       body: Center(
-        child: ListView.builder(
-              itemCount: players.length,
-              itemBuilder: (BuildContext context,int i){
-                return new InkWell(
-                  onTap: ()=>setState(() {
-                    if(isSenderMoment){
-                      s = i;
-                      print("SENDER:" + players[i].name);
-                    } 
-                    else {
-                      r = i;
-                      print("RECEIVER:" + players[i].name);
-                      if(s!=r) transition();
-                    }
-                    isSenderMoment = !isSenderMoment;
-                  }
-                  ),
-                  child:Padding(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child:Container(
-                      alignment: Alignment.center,
-                      width: 318,
-                      height: 65,
-                      decoration: BoxDecoration(
-                        color: players[i].name != "BANCA" ? Colors.grey.shade600: Colors.yellow.shade800,
-                        borderRadius: BorderRadiusDirectional.all(Radius.circular(5))
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          !isSenderMoment ? Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.greenAccent,
-                            size: 50,
-                          ) : SizedBox(width: 50,),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                players[i].name,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              if(players[i].name != "BANCA")Text(players[i].points.toString())
-                            ],
-                          ),
-                          isSenderMoment ? Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.redAccent,
-                            size: 50,
-                          ) : SizedBox(width: 50,),
-
-                        ],
-                      ),
-                    ) 
-                  )
-                );
-              },
-        )
-        
-        
-        
+            child : isSenderMoment ? senderBody() : receiverBody(),
       ),
 
       bottomNavigationBar: Padding(
@@ -137,6 +79,50 @@ class MyGameplay extends State<Gameplay>{
           (){exitDialog();},
           tooltip:"Clicca per terminare la partita"),    
       )
+    );
+  }
+
+  Widget senderBody(){
+
+    return ListView.builder(
+              itemCount: players.length,
+              itemBuilder: (BuildContext context,int i){
+                return InkWell(
+                  onTap: ()=>setState(() {
+                      s = i;
+                      print("SENDER:" + players[i].name);
+                      isSenderMoment = false;
+                  }),
+                  child: GameplayTile(players[i])
+                );
+              }
+            );
+  }
+
+  Widget receiverBody(){
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child:DottedBorder(
+            //strokeWidth: 2,
+            dashPattern: <double>[6,6],
+            child: InkWell(
+              onTap: ()=>null,
+              child: GameplayTile(players[s])
+            ),
+          ),
+        ),
+        Icon(Icons.arrow_downward, size: 70, color: Colors.redAccent.shade700,),
+        ListView.builder(
+          itemCount: players.length,
+          itemBuilder: (context, i){
+            if(i != s){
+              return GameplayTile(players[i]);
+            }
+          },
+        )
+      ],
     );
   }
 
