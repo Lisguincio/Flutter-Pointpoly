@@ -18,7 +18,10 @@ class MyPreparazione1 extends State<Preparazione1>{
     super.initState();
     //CARICAMENTO DELLE PREFERENZE
     SharedPreferences.getInstance().then((i){
-      soldi.text = i.getInt("startpoints").toString();
+      if(i.containsKey('startpoints'))
+        soldi.text = i.getInt("startpoints").toString();
+      else
+        soldi.text = rules_cash.toString();
       });
     ////
   }
