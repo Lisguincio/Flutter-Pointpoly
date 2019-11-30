@@ -65,23 +65,32 @@ class Player {
   static void pointsexchange(Player x, Player y, int sum){
     print(x.name +" >>> "+ y.name +" = "+ sum.toString());
     
+
     if(x.points <= sum){ //SE il giocatore debitore ha un patrimonio inferiore alla somma dovuta
       y.addpoints(x.points); //Passa al ricevente l'intero patrimonio
+      statscash += x.points; //AGGIUNGE LA SOMMA PASSATA ALLE STATS
       startplayers.firstWhere((a)=>a.id == x.id).position = Match.position--; //Posizione del debitore
       print(x.name + " ELIMINATO - NumGiocatoriinGioco = " + players.length.toString() + " con posizione " + (Match.position+1).toString());
       players.remove(x); //Elimina il debitore
-      statscash += sum; //STATS
+
+      if(y.points >= statmaxcash && y.name != "BANCA"){
+        statmaxcash = y.points;
+        statmaxcashowner = y.name;
+      }
+      
+
+
       return ;//FINISCE IL GIOCO PER X
     }
-
     y.addpoints(sum);
-
+    
     if(y.points >= statmaxcash && y.name != "BANCA"){
       statmaxcash = y.points;
       statmaxcashowner = y.name;
     }
+    
+    statscash += sum; //AGGIUNGE LA SOMMA PASSATA ALLE STATS
     x.leavepoints(sum);
-    statscash += sum; //STATS
   }
 
 

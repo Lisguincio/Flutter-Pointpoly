@@ -31,8 +31,8 @@ class MyGameplay extends State<Gameplay>{
   void initState(){
     //RESET STATS
     statscash = 0;
-    statmaxcash = 0;
-    statmaxcashowner = " ";
+    statmaxcash = startpoints;
+    statmaxcashowner = "";
     start = clock.now();
     isSenderMoment = true;
     //
