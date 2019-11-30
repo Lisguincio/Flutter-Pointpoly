@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'history.dart';
 
 final GlobalKey<ScaffoldState> _playerTileScaffoldKey = new GlobalKey<ScaffoldState>();
+//TODO: Correggere l'errore: Duplicate GlobalKey detected in widget tree.
 
 class PlayerTile extends StatelessWidget{
 
@@ -74,7 +75,6 @@ class PlayerTile extends StatelessWidget{
           }
           )
       )
-
     );
   }
 }
@@ -99,8 +99,6 @@ class MyPreparazione2 extends State<Preparazione2>{
       startplayers.add(Player(id: startplayers.length, ));
       controllers.add(TextEditingController());
     }
-    
-
   } //initState
 
   void dispose(){
@@ -157,8 +155,8 @@ class MyPreparazione2 extends State<Preparazione2>{
               players.add(Player.fromPlayer(startplayers[i]));
             }
             Match.position = startplayers.length;
-            Navigator.pushNamed(context, "/Game");
             dispose();
+            Navigator.pushNamed(context, "/Game");
           }, 
           tooltip: "Click per avanti avanti nel settaggio",
         )
