@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:Pointpoly/stats.dart';
+import 'MonopolyIcon.dart';
 import 'screens/history.dart';
 
 //COSTANTI DELLE REGOLE//
@@ -24,7 +25,7 @@ class Player {
   int id;
   String name;
   int points;
-  Color color;
+  Image pawn;
   int position;
 
   Player({
@@ -32,13 +33,13 @@ class Player {
     this.name=" ",
     this.points=0,
     }){
-      this.color = Color.fromRGBO(25*random.nextInt(11), 25*random.nextInt(11), 25*random.nextInt(11), 1);
+      this.pawn = Image.asset(icon_nave);
     }
   
   Player.fromPlayer(Player p){
     this.id = p.id;
     this.name = p.name;
-    this.color = p.color;
+    this.pawn = p.pawn;
     this.points = p.points;
     this.position = p.position;
   }
