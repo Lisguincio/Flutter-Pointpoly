@@ -150,10 +150,10 @@ class _History extends State<History>{
         actions: <Widget>[
           FlatButton(
             child: Text("Si"),
-            onPressed:(){
+            onPressed:()=>setState((){
               deleteHistory();
               Navigator.pop(context);
-            }
+            })
           ),
           FlatButton(
             child: Text("No"),
