@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   "assets/whitetheme/Pointpoly-LOGO4x.png",
                 ),
                 Text(
-                  "Pointpoly",
+                  "POINTPOLY",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 40,

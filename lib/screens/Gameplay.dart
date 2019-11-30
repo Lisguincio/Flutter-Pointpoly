@@ -36,25 +36,27 @@ class MyGameplay extends State<Gameplay>{
     start = clock.now();
     isSenderMoment = true;
     //
-    BackButtonInterceptor.add(myInterceptor); //BLOCK BACK BUTTON
+    BackButtonInterceptor.add(exitInterceptor); //BLOCK BACK BUTTON
     super.initState();
   }
 
   void dispose(){
-    BackButtonInterceptor.remove(myInterceptor); //UNLOCK BACK BUTTON
+    BackButtonInterceptor.remove(exitInterceptor); //UNLOCK BACK BUTTON
     super.dispose();
   }
 
   //BACK BUTTON
-  bool myInterceptor(bool stopDefaultButtonEvent) { 
+  bool exitInterceptor(bool stopDefaultButtonEvent) { 
    print("BACK BUTTON!");
-   exitDialog();
+   
+   isSenderMoment ? exitDialog() : setState((){isSenderMoment = true;});
    return true;
   }
 
   Widget build (BuildContext context){
 
     return Scaffold(
+      backgroundColor: isSenderMoment ? Colors.grey.shade300 : Colors.black38,
       key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
@@ -101,27 +103,37 @@ class MyGameplay extends State<Gameplay>{
 
   Widget receiverBody(){
     return Column(
+      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
           child:DottedBorder(
-            //strokeWidth: 2,
+            color: Colors.white60,
             dashPattern: <double>[6,6],
-            child: InkWell(
-              onTap: ()=>null,
-              child: GameplayTile(players[s])
-            ),
+            child:  GameplayTile(players[s])
           ),
         ),
-        Icon(Icons.arrow_downward, size: 70, color: Colors.redAccent.shade700,),
-        ListView.builder(
-          itemCount: players.length,
-          itemBuilder: (context, i){
-            if(i != s){
-              return GameplayTile(players[i]);
-            }
+        Text("Seleziona il destinatario della somma",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
+        Icon(Icons.arrow_downward, size: 100, color: Colors.redAccent.shade700,),
+        Expanded(
+          child:ListView.builder(
+            shrinkWrap: true,
+            itemCount: players.length,
+            itemBuilder: (context, i){
+              if(i != s){
+                return InkWell(
+                  child:GameplayTile(players[i]),
+                  onTap: ()=>setState(() {
+                    r = i;
+                    transition();
+                  }),
+                );
+              }
+            else return SizedBox();
           },
         )
+        )
+         
       ],
     );
   }
@@ -157,7 +169,7 @@ class MyGameplay extends State<Gameplay>{
     }
   }
 
-  void transition(){
+ void transition(){
     TextEditingController controllino = new TextEditingController();
     if(!dialog){  
       dialog =true;
@@ -185,28 +197,29 @@ class MyGameplay extends State<Gameplay>{
                   },
                   child: Text('Annulla')),
               FlatButton(
+                child: Text('Trasferisci'),
                 onPressed: (){
                   setState(() {
-                    //print(controllino.text);
+                    int prima = players.length;
                     Player.pointsexchange(players[s], players[r], int.parse(controllino.text));
+                    bool deletedplayer = (prima > players.length);
                     dialog = false;
                   
 
                     if(players.length == 2){
                       winner = players.last;
                       startplayers.firstWhere((a){return a.id == winner.id;}).position = Match.position--; //Posizione del debitore
-
                       dispose();
                       stop = clock.now();
                       Navigator.pushNamed(context, "/FinePartita");
                     }
                     else {
                       Navigator.pop(context);
-                      inSnackBar(players[s], players[r], controllino.text);
+                      if(!deletedplayer)inSnackBar(players[s], players[r], controllino.text);
                     }
+                    isSenderMoment = true;
                   });
                 },
-                child: Text('Trasferisci'),
               )
             ],
           );
@@ -214,7 +227,7 @@ class MyGameplay extends State<Gameplay>{
     }
   }
 
-  void inSnackBar(Player sender, Player receiver, String sum){
+ void inSnackBar(Player sender, Player receiver, String sum){
   _scaffoldKey.currentState.showSnackBar(SnackBar(
     behavior: SnackBarBehavior.floating,
     content: Text(
