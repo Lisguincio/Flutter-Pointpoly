@@ -36,12 +36,12 @@ class PlayerTile extends StatelessWidget{
           decoration: InputDecoration(
             icon: IconButton(
               iconSize: 60,
-              icon: player.pawn,
+              icon: Image.asset(player.pawn.uri),
               onPressed: (){
 
                 showModal(player.id);
-                } //TODO: completare la selezione delle pedine
-            ),              
+                }
+            ),
             hintText: "Inserisci Nome",
             suffix: Text((player.id+1).toString()),
             suffixStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)
@@ -65,7 +65,7 @@ class PlayerTile extends StatelessWidget{
               leading: Image.asset(pawnList[i].uri,fit: BoxFit.contain,width: 60,),
               onTap: (){
                 parent.setState((){
-                  startplayers[id].pawn = Image.asset(pawnList[i].uri);
+                  startplayers[id].pawn = Pawn(pawnList[i].name, pawnList[i].uri);
                   Navigator.pop(context);
                 }
                 );
@@ -90,17 +90,16 @@ class MyPreparazione2 extends State<Preparazione2>{
   List<TextEditingController> controllers = new List();
 
   void initState(){
-    
-
     super.initState();
+    Pawn.createPawnList();
     players.clear();
     startplayers.clear();
     controllers.clear();
     for(int i=0;i<2;i++){
-      startplayers.add(Player(id: startplayers.length));
+      startplayers.add(Player(id: startplayers.length, ));
       controllers.add(TextEditingController());
     }
-    Pawn.createPawnList();
+    
 
   } //initState
 

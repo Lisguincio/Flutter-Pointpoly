@@ -1,6 +1,4 @@
 import 'dart:core';
-
-import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:Pointpoly/stats.dart';
@@ -25,7 +23,7 @@ class Player {
   int id;
   String name;
   int points;
-  Image pawn;
+  Pawn pawn;
   int position;
 
   Player({
@@ -33,7 +31,7 @@ class Player {
     this.name=" ",
     this.points=0,
     }){
-      this.pawn = Image.asset(icon_nave);
+      this.pawn = pawnList[Pawn.pawnIndex++%8];
     }
   
   Player.fromPlayer(Player p){

@@ -12,6 +12,8 @@ const String icon_auto = asset + "/Risorsa8.png";
 var pawnList = new List<Pawn>();
 
 class Pawn{
+  static int pawnIndex=0;
+
   String uri;
   String name;
 
@@ -27,5 +29,7 @@ class Pawn{
     pawnList.add(Pawn("Cappello",icon_cappello));
     pawnList.add(Pawn("Automobile",icon_auto));
   }
+
+
 }
 
