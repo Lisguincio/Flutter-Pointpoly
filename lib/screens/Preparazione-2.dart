@@ -9,12 +9,12 @@ import 'history.dart';
 final GlobalKey<ScaffoldState> _playerTileScaffoldKey = new GlobalKey<ScaffoldState>();
 
 class PlayerTile extends StatelessWidget{
-  
 
+  final MyPreparazione2 parent;
   final Player player;
   final TextEditingController controller;
 
-  PlayerTile(this.player, this.controller);
+  PlayerTile(this.player, this.controller, this.parent);
 
   Widget build(BuildContext context){
     return Padding(
@@ -25,6 +25,7 @@ class PlayerTile extends StatelessWidget{
         alignment: AlignmentDirectional.center,
         padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
           color: Colors.blueGrey.shade300,
         ),
         child: TextField(
@@ -36,8 +37,11 @@ class PlayerTile extends StatelessWidget{
             icon: IconButton(
               iconSize: 60,
               icon: player.pawn,
-              onPressed: ()=>mostraBottomSheet(player.id),
-            ),
+              onPressed: (){
+
+                showModal(player.id);
+                } //TODO: completare la selezione delle pedine
+            ),              
             hintText: "Inserisci Nome",
             suffix: Text((player.id+1).toString()),
             suffixStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)
@@ -47,27 +51,33 @@ class PlayerTile extends StatelessWidget{
     );
   }
 
-  
-  
-  void mostraBottomSheet(int id){
-      showModalBottomSheet(
-        elevation: 10,       
-        context: _playerTileScaffoldKey.currentContext,
-        builder:(context){
-          return ListView(
-            children: <Widget>[
-              Center(child: Text("Selezionare la pedina"),),
-              ListTile(leading: Image.asset(icon_cane, fit: BoxFit.contain, width: 60,),title: Text("Cane"),onTap: ()=>_playerTileScaffoldKey.currentState.setState((){startplayers[id].pawn = Image.asset(icon_cane);})),
+  void showModal(int id){
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(side: BorderSide(), borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+      context: _playerTileScaffoldKey.currentContext,
+      builder: (context)=>Padding(
+        padding: EdgeInsets.only(top: 10, bottom: 10),
+          child: ListView.builder(
+          itemCount: pawnList.length,
+          itemBuilder: (BuildContext context, i){
+            return ListTile(
+              title: Text(pawnList[i].name),
+              leading: Image.asset(pawnList[i].uri,fit: BoxFit.contain,width: 60,),
+              onTap: (){
+                parent.setState((){
+                  startplayers[id].pawn = Image.asset(pawnList[i].uri);
+                  Navigator.pop(context);
+                }
+                );
+              }
+            );
+          }
+          )
+      )
 
-            
-
-            ]
-          );
-        }
-      );
-    }
+    );
   }
-
+}
 
 
 class Preparazione2 extends StatefulWidget{
@@ -75,8 +85,6 @@ class Preparazione2 extends StatefulWidget{
   MyPreparazione2 createState() => MyPreparazione2();
 }
 
-
- 
 class MyPreparazione2 extends State<Preparazione2>{
   
   List<TextEditingController> controllers = new List();
@@ -92,6 +100,8 @@ class MyPreparazione2 extends State<Preparazione2>{
       startplayers.add(Player(id: startplayers.length));
       controllers.add(TextEditingController());
     }
+    Pawn.createPawnList();
+
   } //initState
 
   void dispose(){
@@ -130,7 +140,7 @@ class MyPreparazione2 extends State<Preparazione2>{
 
       body: ListView.builder(
         itemCount: controllers.length,
-        itemBuilder: (context, i) =>PlayerTile(startplayers[i], controllers[i])
+        itemBuilder: (context, i) =>PlayerTile(startplayers[i], controllers[i], this)
       ),
 
       bottomNavigationBar: Padding(
@@ -155,5 +165,7 @@ class MyPreparazione2 extends State<Preparazione2>{
         )
       ),
     );
-  } //Build
+  }
+  
+   //Build
 } //_MyPreparazione-2

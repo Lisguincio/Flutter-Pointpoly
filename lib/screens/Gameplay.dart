@@ -169,7 +169,7 @@ class MyGameplay extends State<Gameplay>{
     }
   }
 
- void transition(){
+  void transition(){
     TextEditingController controllino = new TextEditingController();
     if(!dialog){  
       dialog =true;
@@ -227,24 +227,24 @@ class MyGameplay extends State<Gameplay>{
     }
   }
 
- void inSnackBar(Player sender, Player receiver, String sum){
-  _scaffoldKey.currentState.showSnackBar(SnackBar(
-    behavior: SnackBarBehavior.floating,
-    content: Text(
-      sender.name + " > " + sum + " > " + receiver.name,
-      style: TextStyle( 
-        fontWeight: FontWeight.bold,
-        fontSize: 16
+  void inSnackBar(Player sender, Player receiver, String sum){
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
+      content: Text(
+        sender.name + " > " + sum + " > " + receiver.name,
+        style: TextStyle( 
+          fontWeight: FontWeight.bold,
+          fontSize: 16
+        ),
+        textAlign: TextAlign.center, 
       ),
-      textAlign: TextAlign.center, 
-    ),
-    action: SnackBarAction(
-      label: "ANNULLA",
-      onPressed: ()=>setState((){
-        Player.pointsexchange(receiver, sender, int.parse(sum));
-      }),
-    ),
-  ));
-}
+      action: SnackBarAction(
+        label: "ANNULLA",
+        onPressed: ()=>setState((){
+          Player.pointsexchange(receiver, sender, int.parse(sum));
+        }),
+      ),
+    ));
+  }
 }
 
