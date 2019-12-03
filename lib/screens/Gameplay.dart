@@ -60,8 +60,8 @@ class MyGameplay extends State<Gameplay>{
       key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.close),
-          onPressed: (){exitDialog();},
+          icon: isSenderMoment ? Icon(Icons.close) : Icon(Icons.arrow_back),
+          onPressed: isSenderMoment ? (){exitDialog();} : (){setState((){isSenderMoment = true;});},
           color: Colors.white,
         ),
         title: isSenderMoment? Text("Gameplay - Scegli Mittente") : Text("Gameplay - Scegli Destinatario"),
