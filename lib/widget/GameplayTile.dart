@@ -22,22 +22,27 @@ class GameplayTile extends StatelessWidget{
           borderRadius: BorderRadiusDirectional.all(Radius.circular(5))
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  player.name,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                if(player.name != "BANCA")Text(player.points.toString())
-              ],
+            if(player.name != "BANCA")
+            Container(
+              child: Image.asset(player.pawn.uri),
             ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    player.name,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if(player.name != "BANCA")Text(player.points.toString())
+                ],
+              ),
+            )
           ],
         ),
       ) 
