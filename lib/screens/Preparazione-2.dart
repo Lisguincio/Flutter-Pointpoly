@@ -157,7 +157,7 @@ class MyPreparazione2 extends State<Preparazione2>{
             }
             Match.position = startplayers.length;
             dispose();
-            Navigator.push(context, CupertinoPageRoute(builder: (context) => Gameplay()));
+            Navigator.pushNamed(context, "/Game");
           }, 
           tooltip: "Click per avanti avanti nel settaggio",
         )
