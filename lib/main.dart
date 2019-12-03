@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -129,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
           36, 
           Colors.greenAccent.shade700, 
           "INIZIA", 
-          ()=>Navigator.pushNamed(context, "/Preparazione1"),
+          ()=>Navigator.push(context, CupertinoPageRoute(builder: (context) => Preparazione1())),
           tooltip: "Click per iniziare una partita",
         ),
         SizedBox(height: 10,),

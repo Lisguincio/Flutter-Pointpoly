@@ -1,3 +1,5 @@
+import 'package:Pointpoly/screens/Preparazione-2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Pointpoly/definitions.dart';
@@ -111,7 +113,7 @@ class MyPreparazione1 extends State<Preparazione1>{
               i.setInt('startpoints', startpoints).then((a)=>print("STARTPOINTS salvato nelle preferenze"));
             });
             ////
-            Navigator.pushNamed(context, "/Preparazione2");
+            Navigator.push(context, CupertinoPageRoute(builder: (context)=> Preparazione2()));// "/Preparazione2");
           },
           tooltip:"Tap per avanzare nella preparazione"),    
       )
