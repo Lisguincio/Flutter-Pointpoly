@@ -1,4 +1,6 @@
 import 'package:Pointpoly/MonopolyIcon.dart';
+import 'package:Pointpoly/screens/Gameplay.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Pointpoly/definitions.dart';
 import 'package:Pointpoly/widget/button.dart';
@@ -6,7 +8,7 @@ import 'package:flutter/services.dart';
 
 import 'history.dart';
 
-final GlobalKey<ScaffoldState> _playerTileScaffoldKey = new GlobalKey<ScaffoldState>();
+//final GlobalKey<ScaffoldState> _playerTileScaffoldKey = new GlobalKey<ScaffoldState>();
 //TODO: Correggere l'errore: Duplicate GlobalKey detected in widget tree.
 
 class PlayerTile extends StatelessWidget{
@@ -40,7 +42,7 @@ class PlayerTile extends StatelessWidget{
               icon: Image.asset(player.pawn.uri),
               onPressed: (){
 
-                showModal(player.id);
+                showModal(player.id, context);
                 }
             ),
             hintText: "Inserisci Nome",
@@ -52,10 +54,11 @@ class PlayerTile extends StatelessWidget{
     );
   }
 
-  void showModal(int id){
+  void showModal(int id, context){
     showModalBottomSheet(
       shape: RoundedRectangleBorder(side: BorderSide(), borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))),
-      context: _playerTileScaffoldKey.currentContext,
+      //context: _playerTileScaffoldKey.currentContext,
+      context: context,      
       builder: (context)=>Padding(
         padding: EdgeInsets.only(top: 10, bottom: 10),
           child: ListView.builder(
@@ -109,7 +112,7 @@ class MyPreparazione2 extends State<Preparazione2>{
   Widget build(BuildContext context){
 
     return Scaffold(
-      key: _playerTileScaffoldKey,
+      //key: _playerTileScaffoldKey,
       appBar: AppBar(
         title:Text("Preparazione Al Gioco - 2"),
         actions: <Widget>[
@@ -156,7 +159,7 @@ class MyPreparazione2 extends State<Preparazione2>{
             }
             Match.position = startplayers.length;
             dispose();
-            Navigator.pushNamed(context, "/Game");
+            Navigator.push(context, CupertinoPageRoute(builder: (context) => Gameplay()));
           }, 
           tooltip: "Click per avanti avanti nel settaggio",
         )
