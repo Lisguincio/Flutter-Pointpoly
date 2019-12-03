@@ -8,9 +8,6 @@ import 'package:flutter/services.dart';
 
 import 'history.dart';
 
-//final GlobalKey<ScaffoldState> _playerTileScaffoldKey = new GlobalKey<ScaffoldState>();
-//TODO: Correggere l'errore: Duplicate GlobalKey detected in widget tree.
-
 class PlayerTile extends StatelessWidget{
 
   final MyPreparazione2 parent;
