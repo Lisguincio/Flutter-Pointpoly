@@ -22,7 +22,7 @@ class Pawn{
   static void createPawnList(){
     if(pawnList.length == 0){
       pawnList.add(Pawn("Cane",icon_cane));
-      pawnList.add(Pawn("Nane",icon_nave));
+      pawnList.add(Pawn("Nave",icon_nave));
       pawnList.add(Pawn("Borsa",icon_borsa));
       pawnList.add(Pawn("Scarpa",icon_scarpa));
       pawnList.add(Pawn("Lampada",icon_lampada));
