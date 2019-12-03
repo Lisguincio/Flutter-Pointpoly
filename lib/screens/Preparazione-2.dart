@@ -53,7 +53,7 @@ class PlayerTile extends StatelessWidget{
 
   void showModal(int id, context){
     showModalBottomSheet(
-      shape: RoundedRectangleBorder(side: BorderSide(), borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))),
       //context: _playerTileScaffoldKey.currentContext,
       context: context,      
       builder: (context)=>Padding(
@@ -61,6 +61,7 @@ class PlayerTile extends StatelessWidget{
           child: ListView.builder(
           itemCount: pawnList.length,
           itemBuilder: (BuildContext context, i){
+            print(pawnList.length);
             return ListTile(
               title: Text(pawnList[i].name),
               leading: Image.asset(pawnList[i].uri,fit: BoxFit.contain,width: 60,),
