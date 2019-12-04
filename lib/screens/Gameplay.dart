@@ -64,7 +64,7 @@ class MyGameplay extends State<Gameplay>{
           onPressed: isSenderMoment ? (){exitDialog();} : (){setState((){isSenderMoment = true;});},
           color: Colors.white,
         ),
-        title: isSenderMoment? Text("Gameplay - Scegli Mittente") : Text("Gameplay - Scegli Destinatario"),
+        title: Text("Gameplay"),
       ),
 
       body: Center(
