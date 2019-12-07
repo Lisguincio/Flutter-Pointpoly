@@ -64,7 +64,10 @@ class MyGameplay extends State<Gameplay>{
           onPressed: isSenderMoment ? (){exitDialog();} : (){setState((){isSenderMoment = true;});},
           color: Colors.white,
         ),
-        title: isSenderMoment? Text("Gameplay - Scegli Mittente") : Text("Gameplay - Scegli Destinatario"),
+        title: Text("Gameplay"),
+        actions: <Widget>[
+          if(!isSenderMoment) IconButton(icon: Icon(Icons.group), color: Colors.white, onPressed: ()=>transition(true),)
+        ],
       ),
 
       body: Center(
@@ -125,7 +128,7 @@ class MyGameplay extends State<Gameplay>{
                   child:GameplayTile(players[i]),
                   onTap: ()=>setState(() {
                     r = i;
-                    transition();
+                    transition(false);
                   }),
                 );
               }
@@ -169,7 +172,7 @@ class MyGameplay extends State<Gameplay>{
     }
   }
 
-  void transition(){
+  void transition(bool multi){
     TextEditingController controllino = new TextEditingController();
     if(!dialog){  
       dialog =true;
@@ -201,11 +204,18 @@ class MyGameplay extends State<Gameplay>{
                 onPressed: (){
                   setState(() {
                     int prima = players.length;
-                    Player.pointsexchange(players[s], players[r], int.parse(controllino.text));
+                    if(multi){
+                      for(int i=1;i<players.length;i++){
+                        if(players[i].name != players[s].name){
+                          Player.pointsexchange(players[s], players[i], int.parse(controllino.text)); //MAIN MULTI
+                        } 
+                      }
+                    }
+                    else Player.pointsexchange(players[s], players[r], int.parse(controllino.text)); //MAIN
                     bool deletedplayer = (prima > players.length);
                     dialog = false;
-                  
 
+                    //FINE GIOCO
                     if(players.length == 2){
                       winner = players.last;
                       startplayers.firstWhere((a){return a.id == winner.id;}).position = Match.position--; //Posizione del debitore
@@ -213,9 +223,10 @@ class MyGameplay extends State<Gameplay>{
                       stop = clock.now();
                       Navigator.pushNamed(context, "/FinePartita");
                     }
+                    //TORNA INDIETRO
                     else {
                       Navigator.pop(context);
-                      if(!deletedplayer)inSnackBar(players[s], players[r], controllino.text);
+                      if(!deletedplayer && !multi)inSnackBar(players[s], players[r], controllino.text); //TODO: Elimina player con snackbar
                     }
                     isSenderMoment = true;
                   });
