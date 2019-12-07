@@ -1,5 +1,4 @@
-import 'package:Pointpoly/MonopolyIcon.dart';
-import 'package:Pointpoly/screens/Gameplay.dart';
+import 'package:Pointpoly/Pawns.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Pointpoly/definitions.dart';

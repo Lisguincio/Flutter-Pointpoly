@@ -1,3 +1,4 @@
+import 'package:Pointpoly/media.dart';
 import 'package:Pointpoly/screens/Preparazione-2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class MyPreparazione1 extends State<Preparazione1>{
         child:Center(
           child: Column(
             children: <Widget>[
-              Image.asset("assets/whitetheme/Icon-awesome-play-1.png"),
+              Image.asset(playImage),
               SizedBox(height: 20,),
               Column(
                 children: <Widget>[

@@ -2,7 +2,7 @@ import 'dart:core';
 import 'dart:math';
 
 import 'package:Pointpoly/stats.dart';
-import 'MonopolyIcon.dart';
+import 'Pawns.dart';
 import 'screens/history.dart';
 
 //COSTANTI DELLE REGOLE//

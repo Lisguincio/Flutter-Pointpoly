@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:Pointpoly/media.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -93,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  "assets/whitetheme/Pointpoly-LOGO4x.png",
+                  mainImage,
                 ),
                 Text(
                   "POINTPOLY",
