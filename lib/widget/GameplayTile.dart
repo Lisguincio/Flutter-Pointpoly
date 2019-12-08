@@ -14,6 +14,7 @@ class GameplayTile extends StatelessWidget{
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child:Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
         alignment: Alignment.center,
         width: 318,
         height: 65,

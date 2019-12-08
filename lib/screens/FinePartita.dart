@@ -3,6 +3,7 @@ import 'dart:core';
 
 import 'package:Pointpoly/definitions.dart';
 import 'package:Pointpoly/file.dart';
+import 'package:Pointpoly/media.dart';
 import 'package:Pointpoly/stats.dart';
 import 'package:Pointpoly/widget/button.dart';
 import 'package:flutter/material.dart';
@@ -42,9 +43,11 @@ class FinePartita extends StatelessWidget{
           child: Center(
             child: Column(
               children: <Widget>[
-                Image.asset(
-                  "assets/whitetheme/Icon-awesome-crown.png",
-                  color: Colors.yellow.shade700,
+                Container(
+                  width: 300,
+                  padding: EdgeInsets.all(75),
+                  decoration: BoxDecoration(image: DecorationImage(image: AssetImage(crownImage))),
+                  child: Image(image: AssetImage(winner.pawn.uri),),
                 ),
                 SizedBox(height: 10,),
                 Text(

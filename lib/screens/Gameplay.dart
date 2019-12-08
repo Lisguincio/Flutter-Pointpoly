@@ -217,7 +217,7 @@ class MyGameplay extends State<Gameplay>{
 
                     //FINE GIOCO
                     if(players.length == 2){
-                      winner = players.last;
+                      winner = new Player.fromPlayer(players.last);
                       startplayers.firstWhere((a){return a.id == winner.id;}).position = Match.position--; //Posizione del debitore
                       dispose();
                       stop = clock.now();
@@ -257,5 +257,7 @@ class MyGameplay extends State<Gameplay>{
       ),
     ));
   }
+
+
 }
 
