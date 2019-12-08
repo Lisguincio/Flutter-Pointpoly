@@ -18,13 +18,13 @@ class GameplayTile extends StatelessWidget{
         width: 318,
         height: 65,
         decoration: BoxDecoration(
-          color: player.name != "BANCA" ? Colors.grey.shade600: Colors.yellow.shade800,
+          color: player.name != "BANCA" ? Colors.blueGrey.shade300 : Colors.yellow.shade800,
           borderRadius: BorderRadiusDirectional.all(Radius.circular(5))
         ),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            if(player.name != "BANCA")
+            //if(player.name != "BANCA")
             Container(
               child: Image.asset(player.pawn.uri),
             ),
