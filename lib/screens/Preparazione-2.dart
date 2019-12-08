@@ -1,4 +1,5 @@
 import 'package:Pointpoly/Pawns.dart';
+import 'package:Pointpoly/media.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Pointpoly/definitions.dart';
@@ -148,7 +149,8 @@ class MyPreparazione2 extends State<Preparazione2>{
           Colors.greenAccent.shade700, 
           "AVANTI", 
           (){
-            players.add(new Player(id: 0, name: "BANCA", points: rules_bankcash));// BANCA
+            players.add(new Player(id: 0, name: "BANCA", points: rules_bankcash,));// BANCA
+            players.single.pawn = new Pawn("Diamond", icon_diamond);
             for(int i=0;i<startplayers.length;i++){
               startplayers[i].name = controllers[i].text;
               startplayers[i].points = startpoints;

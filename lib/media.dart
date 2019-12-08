@@ -13,3 +13,5 @@ const String icon_lampada = pawn_asset + "/Risorsa5.png";
 const String icon_ditale = pawn_asset + "/Risorsa6.png";
 const String icon_cappello = pawn_asset + "/Risorsa7.png";
 const String icon_auto = pawn_asset + "/Risorsa8.png";
+const String icon_diamond = pawn_asset + "/Risorsa9.png";
+
