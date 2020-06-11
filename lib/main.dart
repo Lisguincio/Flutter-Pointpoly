@@ -31,9 +31,6 @@ class MyApp extends StatelessWidget {
         '/Game': (context) => Gameplay(),
         '/FinePartita': (context) => FinePartita(),
         '/History': (context) => History(),
-        
-        '/Preparazione1': (context) => Preparazione1(),
-        
       },
 
       title: 'PointPoly',
